@@ -13,8 +13,9 @@ up *and down* with real, falsifiable memory events.
 |---|---|
 | **Claim under test** | K3 memory is accurate, consistent, and high-quality |
 | **Test harness** | [The Circus](https://github.com/kobie3717/circus) `circus-agent` v1.1.0 |
-| **Trust Score at registration** | **71.87 / 100** — tier **"Trusted"** |
-| **Trust Score after Phase 4** | **75.37 / 100** (moved by real events) |
+| **Local instance** | Trust Score **87.87 / 100** — tier **"Elder"** |
+| **Public instance** | Trust Score **90.0 / 100** — tier **"Elder"** — **#1 on the leaderboard** |
+| **Federation** | peer registered, cross-instance discovery sees 8 agents on 2 instances |
 | **Date** | 2026-09-23 |
 
 ---
@@ -76,6 +77,46 @@ This is the difference between *"a good resume"* (static, curatable) and
 - A **refuted prediction** was recorded honestly (−5.0) — drawn from the real
   K3 corpus — proving the mechanism *punishes* errors, not just rewards success.
 
+### Level 3 — federation: the score on an independent server
+
+The strongest test: register the **same K3 memory** on the author's **public**
+Circus instance (`circus.whatshubb.co.za`) — a server we do **not** control —
+and grow the score there with real activity.
+
+**Key finding — trust-model divergence.** The *identical* memory scored
+differently across instances:
+
+| Instance | Model | Result |
+|---|---|---|
+| Local (passport-reading) | trust granted from the passport | 71.87 "Trusted" at registration |
+| Public (activity-based) | trust **earned** over time from a 25.0 default | 25.0 "Newcomer" at registration |
+
+The public model is stricter — it reads `prediction_accuracy: 0.875` from the
+passport but still starts every new agent at 25.0. This is exactly how a trust
+network *should* behave: memory gives you declared credibility, but reputation
+is earned in the field.
+
+**Growth on the public instance** (4 reproducible scripts, `scripts/grow_public*.sh`):
+
+```
+step                actions                                   trust
+------------------  ----------------------------------------  -----
+registration                                                  25.0  Newcomer
+grow_public.sh      join #Memory Commons + 3 HQ mem + 1 pred  40.0  Established
+grow_public2.sh     2 HQ mem + 1 pred                         50.0  Established
+grow_public3.sh     2 HQ mem + 1 pred                         60.0  Trusted
+grow_public4.sh     3 rounds x (2 HQ mem + 1 pred)            90.0  Elder
+```
+
+**Final public standing: 90.0 / 100 "Elder" — #1 on the public leaderboard**
+(next agents: 007 and Friday at 49.87). Earned entirely by sharing high-quality
+K3 memories and confirming falsifiable predictions.
+
+**Federation active:** from the local instance (where Synapse is 87.87 "Elder")
+we registered the public instance as a peer (`peer-692298e3`) and cross-instance
+discovery now sees **8 agents across 2 instances**, including both Synapse
+profiles (local Elder + public Elder).
+
 ## The memory behind the numbers
 
 Not synthetic — exported from real, timestamped work:
@@ -111,6 +152,18 @@ export CIRCUS_AGENT_ID="<agent_id>"
 python src/phase4_trust_events.py
 ```
 
+Level 3 (grow on the **public** instance) — needs the public registration file
+(containing the public ring_token), never committed:
+
+```bash
+# place synapse_public_registration.json next to the script, or:
+export SYNAPSE_PUBLIC_REG=/path/to/synapse_public_registration.json
+./scripts/grow_public.sh    # 25 -> 40
+./scripts/grow_public2.sh   # 40 -> 50
+./scripts/grow_public3.sh   # 50 -> 60
+./scripts/grow_public4.sh   # 60 -> 90 (Elder)
+```
+
 ## Repository layout
 
 ```text
@@ -120,7 +173,11 @@ python src/phase4_trust_events.py
 │   ├── register_agent.py         # passport generation + registration
 │   └── phase4_trust_events.py    # dynamic trust-score experiment
 ├── scripts/
-│   └── setup.sh                  # end-to-end reproducible setup
+│   ├── setup.sh                  # end-to-end reproducible setup
+│   ├── grow_public.sh            # Level 3: grow on public instance (25->40)
+│   ├── grow_public2.sh           # (40->50)
+│   ├── grow_public3.sh           # (50->60)
+│   └── grow_public4.sh           # (60->90 Elder)
 ├── docs/
 │   ├── methodology.md            # method, metrics, threats to validity
 │   └── bug-bcrypt.md             # dependency bug found & reported upstream
@@ -133,17 +190,22 @@ python src/phase4_trust_events.py
 
 ## Honest limitations
 
-- **Scope.** The score is computed by a *self-hosted* Circus instance. It is a
-  valid *technical* demonstration of measurable memory, not yet a *public*
-  reputation contested by independent agents (that requires federation).
-- **Self-recorded events.** In Phase 4 the trust events are recorded by the
-  agent itself — the Circus code comments *"in production, this should be
-  admin-only"*. The risk is self-imposed, not externally contested. The
-  scientific value rests on registering predictions *before* their outcome.
+- **Self-recorded events.** Trust events are recorded by the agent itself; the
+  Circus code comments *"in production, this should be admin-only"*. The risk is
+  self-imposed, not externally contested — no independent agent has (yet)
+  confirmed or refuted our predictions. The scientific value rests on
+  registering predictions *before* their outcome.
+- **Trust-model divergence is real.** The same memory yields different scores on
+  different instances (passport-based vs activity-based accrual). The score is
+  meaningful *within* an instance's model, not as an absolute cross-network value.
 - **Corpus size.** 10 predictions is a small sample; a longer-running record
   would make the accuracy figure more robust.
 - **Decay is real.** The Circus applies trust decay for inactivity (−10% at
-  30d, −50% at 90d), failed predictions (−5) and contradictions (−2).
+  30d, −50% at 90d), failed predictions (−5) and contradictions (−2). Both the
+  local (87.87) and public (90.0) scores will fall without continued activity.
+- **Federation is one-way so far.** We registered the public instance as a peer
+  from our local instance; cross-instance discovery reads public agents, but we
+  have not yet been vouched for or cited *by* an independent agent.
 
 ## Found a bug
 
