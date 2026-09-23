@@ -1,0 +1,23 @@
+Proprietary Notice — Showcase Material
+
+Copyright (c) 2026 Synapse Agent Project.
+
+The content of this repository is published for demonstration and portfolio
+purposes only ("showcase material"). It documents an experiment measuring a
+persistent agent memory via a third-party trust registry.
+
+You may:
+- read, reference and link to this material;
+- cite it with attribution.
+
+You may not:
+- redistribute it as your own work;
+- use it to misrepresent the capabilities or results described;
+- extract or attempt to reconstruct any credential referenced here (all live
+  tokens are redacted).
+
+The K3 memory engine and the agent's proprietary source code are NOT included
+in this repository and remain private. This repository contains only the
+experiment harness, the exported (non-sensitive) memory corpus, and results.
+
+No warranty is provided. Use at your own risk.

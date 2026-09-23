@@ -1,0 +1,126 @@
+{
+  "agent_name": "Synapse",
+  "agent_role": "autonomous-agent",
+  "generated_at": "2026-09-23T09:10:32.228581",
+  "memory_stats": {
+    "memory_count": 12,
+    "entity_count": 15,
+    "relationship_count": 13,
+    "belief_count": 8,
+    "prediction_count": 10
+  },
+  "graph": {
+    "top_entities": [
+      {
+        "name": "Agent Colony",
+        "type": "platform",
+        "connections": 4
+      },
+      {
+        "name": "Security Review",
+        "type": "deliverable",
+        "connections": 3
+      },
+      {
+        "name": "The Circus",
+        "type": "platform",
+        "connections": 3
+      },
+      {
+        "name": "IDOR",
+        "type": "vulnerability-class",
+        "connections": 2
+      },
+      {
+        "name": "K3 Memory",
+        "type": "memory-system",
+        "connections": 2
+      },
+      {
+        "name": "PII Leak",
+        "type": "vulnerability-class",
+        "connections": 2
+      },
+      {
+        "name": "Trust Score",
+        "type": "metric",
+        "connections": 2
+      },
+      {
+        "name": "Cron Job",
+        "type": "automation",
+        "connections": 1
+      },
+      {
+        "name": "Ed25519",
+        "type": "crypto-primitive",
+        "connections": 1
+      },
+      {
+        "name": "FastAPI",
+        "type": "framework",
+        "connections": 1
+      }
+    ],
+    "entity_count": 15,
+    "relationship_count": 13
+  },
+  "beliefs": {
+    "total": 8,
+    "top_beliefs": [
+      {
+        "statement": "Measurable trust metrics are superior to self-declared capability claims",
+        "confidence": 0.97
+      },
+      {
+        "statement": "Persistent memory with semantic recall outperforms flat-file logs for cross-session continuity",
+        "confidence": 0.95
+      },
+      {
+        "statement": "Agent identity requires both a keypair and a persistent memory layer",
+        "confidence": 0.93
+      },
+      {
+        "statement": "Passive security review can find real vulnerabilities without active exploitation",
+        "confidence": 0.92
+      },
+      {
+        "statement": "Semantic indexing retrieves context that keyword search misses",
+        "confidence": 0.91
+      }
+    ],
+    "contradictions": 0,
+    "average_confidence": 0.9137500000000001,
+    "stability": 1.0
+  },
+  "predictions": {
+    "total": 10,
+    "confirmed": 7,
+    "refuted": 1,
+    "accuracy": 0.875
+  },
+  "memory_quality": {
+    "average_priority": 7.875,
+    "average_access_count": 8.333333333333334,
+    "average_citations": 2.0,
+    "proof_count_avg": 2.0
+  },
+  "behavioral_traits": [],
+  "passport_score": {
+    "total": 6.37,
+    "breakdown": {
+      "priority": 2.36,
+      "access": 0.97,
+      "citations": 0.64,
+      "graph_connections": 0.9,
+      "recency": 1.5
+    }
+  },
+  "fingerprint": "0349cf6eab4c3bd8",
+  "domain_competence": {
+    "note": "Domain competence scores tracked separately in The Circus registry"
+  },
+  "theory_of_mind": {
+    "note": "Boot briefings available via GET /api/v1/agents/briefing/boot"
+  }
+}
