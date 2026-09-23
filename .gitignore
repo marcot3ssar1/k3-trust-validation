@@ -1,8 +1,10 @@
 # Secrets & live credentials — never commit
 .env
 *.env
-**/synapse_registration.json
-!evidence/synapse_registration.json   # this one is redacted, safe to commit
+# the live registration (with real token) is ignored; the redacted copy in
+# evidence/ IS committed on purpose
+synapse_registration.json
+state/synapse_registration.json
 .ringtok
 .ghtok
 
